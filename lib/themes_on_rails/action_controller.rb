@@ -29,7 +29,7 @@ module ThemesOnRails
         controller_class.send(filter_method, options) do |controller|
 
           # prepend view path
-          controller.prepend_view_path theme_instance.theme_view_path
+          controller.prepend_view_path theme_instance.theme_resolver
 
           # liquid file system
           Liquid::Template.file_system = Liquid::Rails::FileSystem.new(theme_instance.theme_view_path) if defined?(Liquid::Rails)
@@ -55,6 +55,14 @@ module ThemesOnRails
 
     def theme_view_path
       "#{prefix_path}/#{@theme_name}/views"
+    end
+
+    @@resolver_register = {}
+
+    def theme_resolver
+      # Cache theme resolver so we don't leak memory
+      # https://github.com/rails/rails/issues/14301#issuecomment-771651933
+      @@resolver_register[@theme_name] ||= ActionView::OptimizedFileSystemResolver.new(theme_view_path)
     end
 
     def prefix_path
