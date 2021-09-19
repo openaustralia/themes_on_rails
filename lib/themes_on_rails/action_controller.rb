@@ -57,7 +57,7 @@ module ThemesOnRails
       "#{prefix_path}/#{@theme_name}/views"
     end
 
-    @@resolver_register = {}
+    @@resolver_register = Concurrent::Map.new
 
     def theme_resolver
       # Cache theme resolver so we don't leak memory

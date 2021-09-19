@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "rails", ">= 3.2"
+  s.add_dependency "concurrent-ruby"
   s.add_development_dependency "ammeter", "~> 1.1.2"
   s.add_development_dependency "bundler", "~> 1.11"
 end
