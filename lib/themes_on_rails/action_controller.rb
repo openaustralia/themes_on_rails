@@ -28,6 +28,7 @@ module ThemesOnRails
 
         controller_class.send(filter_method, options) do |controller|
 
+          theme_instance.theme_resolver.clear_cache unless ActionView::Resolver.caching?
           # prepend view path
           controller.prepend_view_path theme_instance.theme_resolver
 
