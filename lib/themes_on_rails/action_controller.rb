@@ -63,7 +63,7 @@ module ThemesOnRails
     def theme_resolver
       # Cache theme resolver so we don't leak memory
       # https://github.com/rails/rails/issues/14301#issuecomment-771651933
-      @@resolver_register[@theme_name] ||= ActionView::OptimizedFileSystemResolver.new(theme_view_path)
+      @@resolver_register[@theme_name] ||= ActionView::FileSystemResolver.new(theme_view_path)
     end
 
     def prefix_path
